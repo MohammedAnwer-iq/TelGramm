@@ -11,48 +11,44 @@
             --primary: #6d4c41;
             --secondary: #3e2723;
             --accent: #d7ccc8;
-            --text-on-dark: #fdfbf7;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; -webkit-tap-highlight-color: transparent; }
-        
-        /* FIX: Use dvh for mobile browsers */
         body { background: var(--bg); height: 100dvh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
 
-        /* --- UI COMPONENTS --- */
-        #app { width: 100%; height: 100%; max-width: 1200px; background: white; display: flex; box-shadow: 0 10px 30px rgba(62,39,35,0.2); position: relative; overflow: hidden; }
+        /* --- APP CONTAINER --- */
+        #app { width: 100%; height: 100%; max-width: 1200px; background: white; display: flex; position: relative; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
         
         /* LOGIN */
         #login-overlay { position: absolute; inset: 0; background: var(--bg); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.5s; }
         .card { background: white; padding: 2rem; border-radius: 20px; border: 2px solid var(--primary); text-align: center; width: 300px; }
-        input { width: 100%; padding: 12px; border: 2px solid var(--accent); border-radius: 10px; margin-bottom: 10px; outline: none; transition: 0.3s; font-size: 16px; } /* 16px font prevents zoom on iPhone */
-        input:focus { border-color: var(--primary); }
-        .btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 50px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; }
-        
+        input { width: 100%; padding: 12px; border: 2px solid var(--accent); border-radius: 10px; margin-bottom: 10px; outline: none; font-size: 16px; }
+        .btn { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 50px; cursor: pointer; font-weight: bold; width: 100%; }
+
         /* SIDEBAR */
         .sidebar { width: 300px; border-right: 1px solid var(--accent); display: flex; flex-direction: column; background: white; z-index: 20; height: 100%; }
         .header { background: var(--secondary); padding: 15px; color: white; display: flex; justify-content: space-between; align-items: center; height: 60px; flex-shrink: 0; }
-        /* FIX: Ensure list scrolls properly */
-        .user-list { flex: 1; overflow-y: auto; overflow-x: hidden; } 
+        
+        .user-list { flex: 1; overflow-y: auto; }
         .item { padding: 15px; display: flex; align-items: center; border-bottom: 1px solid #eee; cursor: pointer; transition: 0.2s; }
         .item:hover { background: #fcfcfc; }
-        .item img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--primary); margin-right: 12px; object-fit: cover; flex-shrink: 0; }
+        .item img { width: 45px; height: 45px; border-radius: 50%; margin-right: 12px; }
         
         /* CHAT */
-        .chat { flex: 1; display: flex; flex-direction: column; position: relative; background: radial-gradient(circle, var(--accent) 1px, transparent 1px) 0 0/20px 20px; height: 100%; width: 100%; }
-        .chat-head { height: 60px; border-bottom: 1px solid var(--accent); display: flex; align-items: center; padding: 0 10px; background: rgba(255,255,255,0.95); backdrop-filter: blur(5px); justify-content: space-between; flex-shrink: 0; }
-        .msgs { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; -webkit-overflow-scrolling: touch; }
+        .chat { flex: 1; display: flex; flex-direction: column; position: relative; height: 100%; width: 100%; }
+        .chat-head { height: 60px; border-bottom: 1px solid var(--accent); display: flex; align-items: center; padding: 0 15px; background: #fff; justify-content: space-between; flex-shrink: 0; }
+        .msgs { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; background: radial-gradient(circle, var(--accent) 1px, transparent 1px) 0 0/20px 20px; }
         
-        .msg { max-width: 85%; padding: 10px 15px; border-radius: 15px; font-size: 0.95rem; position: relative; word-break: break-word; }
+        .msg { max-width: 85%; padding: 10px 15px; border-radius: 15px; font-size: 0.95rem; word-break: break-word; position: relative; }
         .msg.me { align-self: flex-end; background: var(--primary); color: white; border-bottom-right-radius: 2px; }
         .msg.them { align-self: flex-start; background: white; border: 1px solid var(--accent); border-bottom-left-radius: 2px; color: var(--secondary); }
-        .msg img { max-width: 100%; border-radius: 10px; margin-top: 5px; cursor: pointer; display: block; }
+
+        /* INPUTS */
+        .controls { padding: 10px; background: white; border-top: 1px solid var(--accent); display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+        .icon { background: none; border: none; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .icon:active { transform: scale(0.9); }
         
-        /* CONTROLS (FIXED FOR MOBILE) */
-        .controls { padding: 10px; background: white; border-top: 1px solid var(--accent); display: flex; align-items: center; gap: 8px; flex-shrink: 0; padding-bottom: max(10px, env(safe-area-inset-bottom)); }
-        .icon { background: none; border: none; font-size: 1.4rem; cursor: pointer; padding: 5px; color: var(--secondary); display: flex; align-items: center; justify-content: center; }
-        
-        /* RECORDING */
+        /* RECORDER */
         #rec-box { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); background: var(--secondary); color: white; padding: 10px 20px; border-radius: 30px; display: none; align-items: center; gap: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 50; }
         .dot { width: 10px; height: 10px; background: #ff4444; border-radius: 50%; animation: pulse 1s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
@@ -61,20 +57,12 @@
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center; }
         .modal-box { background: white; padding: 2rem; width: 90%; max-width: 350px; border-radius: 15px; text-align: center; }
 
-        /* MOBILE OPTIMIZATIONS */
-        .back-btn { display: none; font-size: 1.5rem; margin-right: 15px; cursor: pointer; padding: 10px; }
-        
+        /* RESPONSIVE */
+        .back-btn { display: none; font-size: 1.5rem; margin-right: 15px; cursor: pointer; }
         @media (max-width: 768px) {
-            /* Sidebar becomes an overlay on mobile */
-            .sidebar { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: translateX(0); transition: transform 0.3s ease; }
+            .sidebar { position: absolute; top:0; left:0; width:100%; transition: transform 0.3s; }
             .sidebar.hide { transform: translateX(-100%); }
-            
-            /* Chat takes full width */
-            .chat { width: 100%; }
             .back-btn { display: block; }
-            
-            /* Adjust input for small screens */
-            .controls input { font-size: 16px; } 
         }
     </style>
 </head>
@@ -87,12 +75,12 @@
     <div id="login-overlay">
         <div class="card">
             <h1>☕ HomeGram</h1>
-            <p style="color:#888; margin-bottom:20px">Ultimate Fixed</p>
+            <p style="color:#888; margin-bottom:20px">By M. Anwer</p>
             <input type="text" id="user-in" placeholder="Username">
             <input type="password" id="pass-in" placeholder="Password">
             <button class="btn" id="login-btn">Enter</button>
             <p style="margin-top:15px; font-size:0.8rem; text-decoration:underline; cursor:pointer;" id="toggle-auth">Create Account</p>
-            <div id="login-msg" style="color:red; font-size:0.8rem; margin-top:5px; height:15px;"></div>
+            <div id="login-msg" style="color:red; font-size:0.8rem; margin-top:5px;"></div>
         </div>
     </div>
 
@@ -100,17 +88,16 @@
         <div class="sidebar" id="sidebar">
             <div class="header">
                 <div style="display:flex; align-items:center;" onclick="app.editProfile()">
-                    <img id="my-avi" src="https://via.placeholder.com/40" style="width:40px; height:40px; border-radius:50%; border:2px solid white; margin-right:10px;">
+                    <img id="my-avi" src="" style="border:2px solid white;">
                     <span id="my-name" style="font-weight:bold;">Loading...</span>
                 </div>
                 <div>
-                    <button class="icon" onclick="app.toggleMusic()" title="Music" style="color:white">🎵</button>
-                    <button class="icon" onclick="app.newGroup()" title="New Group" style="color:white">➕</button>
-                    <button class="icon" onclick="app.logout()" title="Exit" style="color:white">🚪</button>
+                    <button class="icon" onclick="app.toggleMusic()" style="color:white">🎵</button>
+                    <button class="icon" onclick="app.newGroup()" style="color:white">➕</button>
+                    <button class="icon" onclick="app.logout()" style="color:white">🚪</button>
                 </div>
             </div>
-            <div class="user-list" id="contact-list">
-                </div>
+            <div class="user-list" id="contact-list"></div>
         </div>
 
         <div class="chat">
@@ -118,15 +105,12 @@
                 <div style="display:flex; align-items:center;">
                     <div class="back-btn" onclick="app.toggleSidebar()">←</div>
                     <img id="chat-avi" src="" style="width:35px; height:35px; border-radius:50%; margin-right:10px; display:none;">
-                    <h3 id="chat-name" style="font-size: 1rem; margin:0;">Select a chat</h3>
+                    <h3 id="chat-name" style="font-size: 1rem; margin:0;">Select a User</h3>
                 </div>
             </div>
             
             <div class="msgs" id="msg-box">
-                <div style="text-align:center; color:#ccc; margin-top:50px;">
-                    Select a contact to start<br>
-                    ☕
-                </div>
+                <div style="text-align:center; color:#ccc; margin-top:50px;">☕<br>Start chatting</div>
             </div>
 
             <div id="rec-box">
@@ -135,11 +119,7 @@
             </div>
 
             <div class="controls" id="input-bar" style="display:none;">
-                <button class="icon" onclick="document.getElementById('file-in').click()">📷</button>
-                <input type="file" id="file-in" hidden accept="image/*" onchange="app.sendImage(this)">
-                
                 <input type="text" id="txt-in" placeholder="Message..." onkeypress="if(event.key==='Enter') app.sendText()">
-                
                 <button class="icon" id="mic-btn">🎙️</button>
                 <button class="icon" onclick="app.sendText()">➤</button>
             </div>
@@ -148,11 +128,8 @@
 
     <div class="modal" id="modal-profile">
         <div class="modal-box">
-            <h3>Edit Profile</h3>
-            <img id="edit-avi-prev" src="" style="width:80px; height:80px; border-radius:50%; margin:15px auto; display:block; object-fit:cover; border:3px solid var(--primary);">
-            <button class="btn" style="font-size:0.8rem; padding:5px 15px; margin-bottom:15px;" onclick="document.getElementById('avi-in').click()">Change Photo</button>
-            <input type="file" id="avi-in" hidden accept="image/*">
-            <input type="text" id="edit-name" placeholder="Display Name">
+            <h3>Edit Name</h3>
+            <input type="text" id="edit-name" placeholder="New Display Name">
             <button class="btn" onclick="app.saveProfile()">Save</button>
             <button class="btn" style="background:#ccc; margin-top:5px;" onclick="document.getElementById('modal-profile').style.display='none'">Cancel</button>
         </div>
@@ -186,7 +163,7 @@
         const auth = getAuth(fApp);
         const db = getFirestore(fApp);
 
-        // 2. SOUND ENGINE
+        // 2. SOUNDS
         const SFX = {
             ctx: new (window.AudioContext || window.webkitAudioContext)(),
             play(type) {
@@ -195,76 +172,32 @@
                 const g = this.ctx.createGain();
                 osc.connect(g); g.connect(this.ctx.destination);
                 const t = this.ctx.currentTime;
-                
-                if(type==='click') { osc.frequency.setValueAtTime(600,t); osc.frequency.expRampToValueAtTime(300,t+0.1); g.gain.setValueAtTime(0.1,t); g.gain.linearRampToValueAtTime(0,t+0.1); osc.start(t); osc.stop(t+0.1); }
                 if(type==='sent') { osc.frequency.setValueAtTime(400,t); osc.frequency.linearRampToValueAtTime(1000,t+0.2); g.gain.setValueAtTime(0.1,t); g.gain.linearRampToValueAtTime(0,t+0.2); osc.start(t); osc.stop(t+0.2); }
-                if(type==='recv') { osc.frequency.setValueAtTime(800,t); g.gain.setValueAtTime(0.1,t); g.gain.linearRampToValueAtTime(0,t+0.1); osc.start(t); osc.stop(t+0.1); setTimeout(()=>{ 
-                    const o2=this.ctx.createOscillator(); const g2=this.ctx.createGain(); o2.connect(g2); g2.connect(this.ctx.destination);
-                    o2.frequency.setValueAtTime(1200,t+0.15); g2.gain.setValueAtTime(0.1,t+0.15); g2.gain.linearRampToValueAtTime(0,t+0.4); o2.start(t+0.15); o2.stop(t+0.4);
-                }, 150); }
+                if(type==='recv') { osc.frequency.setValueAtTime(800,t); g.gain.setValueAtTime(0.1,t); g.gain.linearRampToValueAtTime(0,t+0.1); osc.start(t); osc.stop(t+0.1); }
             }
         };
 
-        // 3. SMART COMPRESSOR (The 1MB Solver)
-        const smartCompress = (file, maxBytes = 950000) => {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = (e) => {
-                    const img = new Image();
-                    img.src = e.target.result;
-                    img.onload = () => {
-                        let w = img.width, h = img.height;
-                        const canvas = document.createElement('canvas');
-                        let quality = 0.8;
-                        let dataUrl = "";
-                        
-                        const attempt = (width) => {
-                            const scale = width / img.width;
-                            canvas.width = width;
-                            canvas.height = img.height * scale;
-                            canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-                            dataUrl = canvas.toDataURL('image/jpeg', quality);
-                            
-                            if (dataUrl.length * 0.75 > maxBytes) {
-                                if(width > 600) attempt(width - 200); 
-                                else { quality -= 0.1; attempt(width); } 
-                            } else {
-                                resolve(dataUrl);
-                            }
-                        };
-                        attempt(Math.min(w, 1280)); 
-                    };
-                };
-            });
-        };
-
-        // 4. MAIN APP LOGIC
+        // 3. APP LOGIC
         window.app = {
-            user: null, chatId: null, usersCache: [],
-            isReg: false, rec: null, chunks: [], timer: null,
+            user: null, chatId: null, usersCache: [], isReg: false, rec: null, chunks: [], timer: null,
 
             init() {
-                const bg = document.getElementById('bg-music');
-                bg.volume = 0.1;
+                document.getElementById('bg-music').volume = 0.1;
                 
                 onAuthStateChanged(auth, u => {
                     this.user = u;
                     if(u) {
-                        document.getElementById('login-overlay').style.opacity = '0';
-                        setTimeout(()=>document.getElementById('login-overlay').style.display='none',500);
+                        document.getElementById('login-overlay').style.display='none';
                         document.getElementById('app').style.opacity = '1';
-                        SFX.play('recv');
-                        this.loadData();
                         this.updateSelf();
+                        this.loadData(); // Load ALL users
                     } else {
                         document.getElementById('login-overlay').style.display = 'flex';
-                        document.getElementById('login-overlay').style.opacity = '1';
                         document.getElementById('app').style.opacity = '0';
                     }
                 });
 
-                // Recorder Events
+                // Recorder
                 const btn = document.getElementById('mic-btn');
                 const start = async () => {
                     try {
@@ -273,7 +206,7 @@
                         this.rec.start();
                         this.chunks=[];
                         document.getElementById('rec-box').style.display='flex';
-                        let s=0; this.timer = setInterval(()=>{ s++; document.getElementById('rec-time').innerText=s; if(s>59) stop(); },1000);
+                        let s=0; this.timer = setInterval(()=>{ s++; document.getElementById('rec-time').innerText=s; if(s>30) stop(); },1000);
                         this.rec.ondataavailable = e => this.chunks.push(e.data);
                         this.rec.onstop = async () => {
                             const blob = new Blob(this.chunks, {type:'audio/webm'});
@@ -284,59 +217,75 @@
                     } catch(e) { alert("Mic Error"); }
                 };
                 const stop = () => { if(this.rec){ this.rec.stop(); clearInterval(this.timer); document.getElementById('rec-box').style.display='none'; } };
-                // Add event listeners for both Mouse and Touch to support all devices
-                btn.addEventListener('mousedown', start);
-                btn.addEventListener('mouseup', stop);
-                btn.addEventListener('touchstart', (e) => { e.preventDefault(); start(); });
-                btn.addEventListener('touchend', (e) => { e.preventDefault(); stop(); });
+                btn.addEventListener('mousedown', start); btn.addEventListener('mouseup', stop);
+                btn.addEventListener('touchstart', (e)=>{e.preventDefault();start()}); btn.addEventListener('touchend', (e)=>{e.preventDefault();stop()});
             },
 
             async authAction() {
                 const u = document.getElementById('user-in').value, p = document.getElementById('pass-in').value;
-                const err = document.getElementById('login-msg');
                 const email = `${u.replace(/\s/g,'').toLowerCase()}@homegram.com`;
                 try {
                     if(this.isReg) {
                         const c = await createUserWithEmailAndPassword(auth, email, p);
                         await updateProfile(c.user, {displayName:u});
-                        await setDoc(doc(db,"users",c.user.uid), {name:u, uid:c.user.uid, email, avatar:`https://ui-avatars.com/api/?name=${u}&background=6d4c41&color=fff`});
+                        // Save User with First Letter Avatar logic handled in loadData()
+                        await setDoc(doc(db,"users",c.user.uid), {name:u, uid:c.user.uid, email:email});
                     } else await signInWithEmailAndPassword(auth, email, p);
-                } catch(e) { err.innerText = e.message.replace('Firebase: ',''); SFX.play('click'); }
+                } catch(e) { document.getElementById('login-msg').innerText = e.message; }
             },
             toggleAuth() { this.isReg=!this.isReg; document.getElementById('login-btn').innerText=this.isReg?"Create":"Enter"; document.getElementById('toggle-auth').innerText=this.isReg?"Log In":"Create Account"; },
             logout() { signOut(auth); },
 
+            // GENERATE AVATAR (First Letter)
+            getAvi(name) {
+                return `https://ui-avatars.com/api/?name=${name}&background=random&color=fff&size=128`;
+            },
+
             loadData() {
                 const list = document.getElementById('contact-list');
                 
-                // Groups
-                onSnapshot(query(collection(db,"groups"), where("members","array-contains",this.user.uid)), s => {
-                    document.querySelectorAll('.grp-item').forEach(e=>e.remove());
-                    s.forEach(d => {
-                        const g = d.data();
-                        const el = this.mkItem(d.id, g.name, "https://via.placeholder.com/50?text=G", true);
-                        el.classList.add('grp-item'); list.prepend(el);
-                    });
+                // 1. Load ALL Users from Database
+                onSnapshot(collection(db,"users"), s => {
+                    // Reset cache
+                    this.usersCache = [];
+                    // Clear only user items (keep groups/global if we want specific order, but easiest to clear all for now)
+                    // Strategy: We will render Groups First, then Global, then Users
+                    this.renderSidebar(s.docs.map(d=>d.data()));
                 });
 
-                // Global
-                if(!document.getElementById('global')) {
-                    const el = this.mkItem('global','HomeGram Global','https://via.placeholder.com/50?text=H',true);
-                    el.id='global'; list.appendChild(el);
-                }
+                // Listen to Groups separately
+                onSnapshot(query(collection(db,"groups"), where("members","array-contains",this.user.uid)), s => {
+                    this.renderSidebar(null, s.docs.map(d => ({...d.data(), id:d.id})));
+                });
+            },
 
-                // Users
-                onSnapshot(collection(db,"users"), s => {
-                    document.querySelectorAll('.usr-item').forEach(e=>e.remove());
-                    this.usersCache = [];
-                    s.forEach(d => {
-                        const u = d.data();
-                        if(u.uid !== this.user.uid) {
-                            this.usersCache.push(u);
-                            const el = this.mkItem(u.uid, u.name, u.avatar, false);
-                            el.classList.add('usr-item'); list.appendChild(el);
-                        }
-                    });
+            // Render helper to mix Groups and Users
+            groupsData: [],
+            usersData: [],
+            
+            renderSidebar(users, groups) {
+                const list = document.getElementById('contact-list');
+                if(users) this.usersData = users;
+                if(groups) this.groupsData = groups;
+                
+                list.innerHTML = '';
+
+                // 1. Groups
+                this.groupsData.forEach(g => {
+                    const el = this.mkItem(g.id, g.name, this.getAvi(g.name), true);
+                    list.appendChild(el);
+                });
+
+                // 2. Global
+                const glob = this.mkItem('global','HomeGram Global', this.getAvi('Global'), true);
+                list.appendChild(glob);
+
+                // 3. Users
+                this.usersData.forEach(u => {
+                    if(u.uid !== this.user.uid) {
+                        const el = this.mkItem(u.uid, u.name, this.getAvi(u.name), false);
+                        list.appendChild(el);
+                    }
                 });
             },
 
@@ -345,17 +294,12 @@
                 d.className = 'item';
                 d.innerHTML = `<img src="${avi}"><div><b>${name}</b></div>`;
                 d.onclick = () => {
-                    SFX.play('click');
                     this.chatId = (!isGrp && id!=='global') ? [this.user.uid,id].sort().join('_') : id;
                     document.getElementById('chat-name').innerText = name;
                     document.getElementById('chat-avi').src = avi;
                     document.getElementById('chat-avi').style.display = 'block';
                     document.getElementById('input-bar').style.display = 'flex';
-                    
-                    // Force Sidebar Hide on Mobile
-                    if(window.innerWidth<=768) {
-                        document.getElementById('sidebar').classList.add('hide');
-                    }
+                    if(window.innerWidth<=768) document.getElementById('sidebar').classList.add('hide');
                     
                     const q = query(collection(db,"msgs"), where("cid","==",this.chatId), orderBy("ts","asc"));
                     onSnapshot(q, s => {
@@ -365,7 +309,6 @@
                             const div = document.createElement('div');
                             div.className = `msg ${m.uid===this.user.uid?'me':'them'}`;
                             let c = m.txt;
-                            if(m.type==='img') c = `<img src="${m.media}" onclick="window.open(this.src)">`;
                             if(m.type==='audio') c = `🎤 Voice <button onclick="new Audio('${m.media}').play()">▶</button>`;
                             if(m.uid!==this.user.uid) c = `<small style="font-size:0.7em; opacity:0.7; display:block;">${m.name}</small>` + c;
                             div.innerHTML = c;
@@ -381,39 +324,25 @@
             async sendMsg(type, txt, media=null) {
                 if(!this.chatId) return;
                 SFX.play('sent');
-                try {
-                    await addDoc(collection(db,"msgs"), {
-                        cid: this.chatId, uid: this.user.uid, name: this.user.displayName,
-                        type, txt, media, ts: Date.now()
-                    });
-                } catch(e) { alert("File too big! (Max 1MB allowed)"); }
+                await addDoc(collection(db,"msgs"), {
+                    cid: this.chatId, uid: this.user.uid, name: this.user.displayName,
+                    type, txt, media, ts: Date.now()
+                });
             },
             sendText() { const i=document.getElementById('txt-in'); if(i.value.trim()){ this.sendMsg('text',i.value); i.value=''; } },
-            async sendImage(el) {
-                if(el.files[0]) {
-                    const compressed = await smartCompress(el.files[0]);
-                    this.sendMsg('img', '', compressed);
-                }
-            },
 
             updateSelf() {
                 document.getElementById('my-name').innerText = this.user.displayName;
-                getDocs(query(collection(db,"users"),where("uid","==",this.user.uid))).then(s=>{
-                    if(!s.empty) {
-                        const url = s.docs[0].data().avatar;
-                        document.getElementById('my-avi').src = url;
-                        document.getElementById('edit-avi-prev').src = url;
-                    }
-                });
+                document.getElementById('my-avi').src = this.getAvi(this.user.displayName);
             },
             saveProfile: async () => {
                 const n = document.getElementById('edit-name').value;
-                const f = document.getElementById('avi-in').files[0];
-                let u = {};
-                if(n) { await updateProfile(auth.currentUser,{displayName:n}); u.name=n; }
-                if(f) u.avatar = await smartCompress(f);
-                await setDoc(doc(db,"users",auth.currentUser.uid), u, {merge:true});
-                app.updateSelf(); document.getElementById('modal-profile').style.display='none';
+                if(n) { 
+                    await updateProfile(auth.currentUser,{displayName:n}); 
+                    await setDoc(doc(db,"users",auth.currentUser.uid), {name:n}, {merge:true});
+                    this.updateSelf();
+                }
+                document.getElementById('modal-profile').style.display='none';
             },
             createGroup: async () => {
                 const n = document.getElementById('grp-name').value;
@@ -423,13 +352,15 @@
                 document.getElementById('modal-group').style.display='none';
             },
 
-            toggleMusic() { const m=document.getElementById('bg-music'); m.paused?m.play():m.pause(); SFX.play('click'); },
+            toggleMusic() { const m=document.getElementById('bg-music'); m.paused?m.play():m.pause(); },
             toggleSidebar() { document.getElementById('sidebar').classList.remove('hide'); },
             editProfile() { document.getElementById('modal-profile').style.display='flex'; },
             newGroup() { 
                 document.getElementById('modal-group').style.display='flex';
                 const l = document.getElementById('grp-list'); l.innerHTML='';
-                this.usersCache.forEach(u => l.innerHTML+=`<div><input type="checkbox" value="${u.uid}"> ${u.name}</div>`);
+                this.usersData.forEach(u => {
+                    if(u.uid !== this.user.uid) l.innerHTML+=`<div><input type="checkbox" value="${u.uid}"> ${u.name}</div>`;
+                });
             }
         };
 
