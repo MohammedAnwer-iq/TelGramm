@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomeGram - Milky Chat-Mohammed Anwer</title>
+    <title>HomeGram - Lite Online</title>
     <style>
-        /* ---Dont Steal My code*/
+        /* --- COCA MILK THEME --- */
         :root {
             --milk-bg: #fdfbf7;
             --milk-cream: #f3e5ab;
             --cocoa-dark: #3e2723;
             --cocoa-light: #6d4c41;
-            --cocoa-soft: #a1887f;
             --accent: #d7ccc8;
             --bubble-self: #6d4c41;
             --bubble-other: #ffffff;
@@ -21,78 +20,49 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--milk-bg); color: #3e2723; height: 100vh; overflow: hidden; display: flex; justify-content: center; align-items: center; }
 
-        /* --- ANIMATIONS --- */
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(109, 76, 65, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(109, 76, 65, 0); } 100% { box-shadow: 0 0 0 0 rgba(109, 76, 65, 0); } }
-
         /* --- LAYOUT --- */
         #app-container { width: 100%; height: 100%; max-width: 1200px; display: flex; position: relative; background: #fff; box-shadow: var(--shadow); overflow: hidden; border-radius: 8px; }
         
-        /* LOGIN SCREEN */
+        /* LOGIN */
         #login-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--milk-bg); z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.5s; }
-        .login-card { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: var(--shadow); width: 90%; max-width: 400px; text-align: center; animation: popIn 0.5s ease; border: 2px solid var(--cocoa-soft); }
-        .input-group { margin-bottom: 1rem; text-align: left; }
-        .input-group label { font-size: 0.8rem; color: var(--cocoa-light); margin-left: 5px; font-weight: bold; }
-        .input-group input { width: 100%; padding: 14px; border: 2px solid var(--accent); border-radius: 12px; outline: none; transition: 0.3s; background: var(--milk-bg); color: var(--cocoa-dark); font-size: 1rem; }
-        .input-group input:focus { border-color: var(--cocoa-light); background: #fff; }
-        .btn-primary { background: var(--cocoa-light); color: white; padding: 14px 24px; border: none; border-radius: 50px; cursor: pointer; font-size: 1rem; width: 100%; transition: 0.3s; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .btn-primary:active { transform: scale(0.98); background: var(--cocoa-dark); }
-        .auth-switch { margin-top: 15px; font-size: 0.9rem; color: var(--cocoa-light); cursor: pointer; text-decoration: underline; }
-
+        .login-card { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: var(--shadow); width: 90%; max-width: 400px; text-align: center; border: 2px solid var(--cocoa-light); }
+        .input-group input { width: 100%; padding: 14px; margin-bottom: 10px; border: 2px solid var(--accent); border-radius: 12px; outline: none; }
+        .btn-primary { background: var(--cocoa-light); color: white; padding: 14px 24px; border: none; border-radius: 50px; cursor: pointer; font-size: 1rem; width: 100%; font-weight: bold; }
+        
         /* SIDEBAR */
         .sidebar { width: 320px; background: #fff; border-right: 1px solid var(--accent); display: flex; flex-direction: column; transition: transform 0.3s; z-index: 20; }
-        .sidebar-header { padding: 15px; background: var(--cocoa-dark); color: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .sidebar-header { padding: 15px; background: var(--cocoa-dark); color: white; display: flex; justify-content: space-between; align-items: center; }
         .user-list { flex: 1; overflow-y: auto; }
-        
-        /* User/Group Item */
-        .user-item { padding: 15px; display: flex; align-items: center; cursor: pointer; transition: 0.2s; border-bottom: 1px solid #f0f0f0; position: relative; }
-        .user-item:hover, .user-item.active { background: var(--milk-cream); }
-        .user-item .tag { position: absolute; top: 10px; right: 10px; font-size: 0.6rem; background: var(--cocoa-light); color: white; padding: 2px 6px; border-radius: 4px; }
-        .avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--cocoa-soft); margin-right: 15px; object-fit: cover; border: 2px solid var(--cocoa-dark); transition: transform 0.2s; }
-        .avatar:hover { transform: scale(1.1); }
+        .user-item { padding: 15px; display: flex; align-items: center; cursor: pointer; border-bottom: 1px solid #f0f0f0; }
+        .user-item:hover { background: var(--milk-cream); }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--cocoa-light); margin-right: 15px; object-fit: cover; }
 
         /* CHAT AREA */
         .chat-area { flex: 1; display: flex; flex-direction: column; background-image: radial-gradient(var(--accent) 1px, transparent 1px); background-size: 20px 20px; position: relative; }
-        .chat-header { padding: 10px 20px; background: rgba(255,255,255,0.95); border-bottom: 1px solid var(--accent); display: flex; align-items: center; backdrop-filter: blur(5px); justify-content: space-between; z-index: 10; height: 70px; }
+        .chat-header { padding: 10px 20px; background: rgba(255,255,255,0.95); border-bottom: 1px solid var(--accent); display: flex; align-items: center; height: 70px; justify-content: space-between; }
         .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
         
-        .message { max-width: 70%; padding: 10px 15px; border-radius: 15px; position: relative; animation: slideUp 0.3s ease; font-size: 0.95rem; line-height: 1.4; word-wrap: break-word; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .message { max-width: 70%; padding: 10px 15px; border-radius: 15px; font-size: 0.95rem; word-wrap: break-word; }
         .message.sent { align-self: flex-end; background: var(--bubble-self); color: var(--milk-bg); border-bottom-right-radius: 2px; }
         .message.received { align-self: flex-start; background: var(--bubble-other); color: var(--cocoa-dark); border: 1px solid var(--accent); border-bottom-left-radius: 2px; }
-        .message img { max-width: 100%; border-radius: 10px; margin-top: 5px; cursor: pointer; border: 2px solid rgba(0,0,0,0.1); }
-        .audio-player { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.1); padding: 8px 12px; border-radius: 20px; margin-top: 5px; cursor: pointer; transition: background 0.2s; border: 1px solid rgba(0,0,0,0.1); }
-        .audio-player:hover { background: rgba(0,0,0,0.2); }
+        .message img { max-width: 100%; border-radius: 10px; margin-top: 5px; cursor: pointer; }
         
-        /* INPUT AREA */
+        /* INPUT & OVERLAYS */
         .chat-input-area { padding: 10px; background: white; border-top: 1px solid var(--accent); display: flex; align-items: center; gap: 10px; }
-        .icon-btn { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--cocoa-soft); padding: 8px; border-radius: 50%; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
-        .icon-btn:hover { background: var(--milk-cream); color: var(--cocoa-dark); transform: scale(1.1); }
-        .chat-input { flex: 1; padding: 12px; border-radius: 25px; border: 1px solid var(--accent); outline: none; transition: 0.3s; font-size: 1rem; }
+        .icon-btn { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--cocoa-light); padding: 8px; }
+        .chat-input { flex: 1; padding: 12px; border-radius: 25px; border: 1px solid var(--accent); outline: none; }
         
-        /* RECORDING & MODALS */
-        .recording-overlay { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); background: var(--cocoa-dark); color: white; padding: 12px 25px; border-radius: 30px; display: none; align-items: center; gap: 15px; animation: popIn 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 50; }
-        .recording-dot { width: 12px; height: 12px; background: #ff4444; border-radius: 50%; animation: pulse 1.5s infinite; }
+        .recording-overlay { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); background: var(--cocoa-dark); color: white; padding: 12px 25px; border-radius: 30px; display: none; align-items: center; gap: 15px; z-index: 50; }
         
-        /* GENERIC MODAL */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 200; justify-content: center; align-items: center; backdrop-filter: blur(2px); }
-        .modal-content { background: white; padding: 2rem; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; animation: popIn 0.3s; max-height: 80vh; overflow-y: auto; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 200; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 2rem; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; }
         
-        /* GROUP CREATION STYLES */
-        .user-select-list { text-align: left; max-height: 200px; overflow-y: auto; border: 1px solid var(--accent); border-radius: 10px; margin: 15px 0; padding: 10px; }
-        .user-select-item { display: flex; align-items: center; padding: 8px; border-bottom: 1px solid #eee; }
-        .user-select-item input { margin-right: 10px; width: 20px; height: 20px; accent-color: var(--cocoa-light); }
-        
-        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .sidebar { position: absolute; height: 100%; transform: translateX(0); width: 100%; box-shadow: 5px 0 15px rgba(0,0,0,0.1); }
+            .sidebar { position: absolute; height: 100%; transform: translateX(0); width: 100%; }
             .sidebar.hidden { transform: translateX(-100%); }
-            .chat-area { width: 100%; }
-            .back-btn { display: block !important; margin-right: 10px; }
+            .back-btn { display: block !important; margin-right: 10px; cursor: pointer; font-size: 1.5rem;}
         }
-        .back-btn { display: none; cursor: pointer; font-size: 1.5rem; }
-        .error-shake { animation: shake 0.3s; border-color: red !important; }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        .back-btn { display: none; }
     </style>
 </head>
 <body>
@@ -104,18 +74,12 @@
     <div id="login-screen">
         <div class="login-card">
             <h1 style="color:var(--cocoa-dark)">☕ HomeGram</h1>
-            <p style="color: #888; margin-bottom: 25px;">The Milky Way to Chat</p>
-            <div class="input-group">
-                <label>USERNAME</label>
-                <input type="text" id="username-input" placeholder="e.g. FahedDesign" autocomplete="off">
-            </div>
-            <div class="input-group">
-                <label>PASSWORD</label>
-                <input type="password" id="password-input" placeholder="••••••••">
-            </div>
+            <p style="color: #888; margin-bottom: 25px;">Online • No Storage</p>
+            <div class="input-group"><input type="text" id="username-input" placeholder="Username"></div>
+            <div class="input-group"><input type="password" id="password-input" placeholder="Password"></div>
             <button class="btn-primary" id="auth-btn">Log In</button>
-            <p class="auth-switch" id="auth-switch-text">Create Account</p>
-            <p id="auth-error" style="color: #d32f2f; font-size: 0.8rem; margin-top: 15px; min-height: 20px;"></p>
+            <p style="margin-top:15px; cursor:pointer; text-decoration:underline; font-size:0.9rem;" id="auth-switch-text">Create Account</p>
+            <p id="auth-error" style="color: red; font-size: 0.8rem; margin-top: 10px;"></p>
         </div>
     </div>
 
@@ -124,19 +88,14 @@
             <div class="sidebar-header">
                 <div style="display: flex; align-items: center; gap: 10px; cursor: pointer;" id="profile-trigger">
                     <img src="https://via.placeholder.com/50" class="avatar" id="my-avatar-mini">
-                    <div>
-                        <span id="my-username-display" style="font-weight: bold;">Guest</span>
-                        <div style="font-size: 0.7rem; opacity: 0.8;">Online</div>
-                    </div>
+                    <span id="my-username-display" style="font-weight: bold;">Guest</span>
                 </div>
-                <div style="display:flex; gap: 5px;">
-                     <button class="icon-btn" style="color: white; font-size: 1.2rem;" id="create-group-btn" title="New Group">➕</button>
-                     <button class="icon-btn" style="color: white; font-size: 1rem;" id="music-toggle-btn" title="Toggle Music">🎵</button>
-                     <button class="icon-btn" style="color: white; font-size: 1rem;" id="logout-btn" title="Logout">🚪</button>
+                <div>
+                     <button class="icon-btn" id="create-group-btn">➕</button>
+                     <button class="icon-btn" id="logout-btn">🚪</button>
                 </div>
             </div>
-            <div class="user-list" id="user-list">
-                </div>
+            <div class="user-list" id="user-list"></div>
         </div>
 
         <div class="chat-area" id="chat-area">
@@ -144,33 +103,25 @@
                 <div style="display: flex; align-items: center;">
                     <span class="back-btn" id="back-to-sidebar">←</span>
                     <img src="" class="avatar" id="current-chat-avatar" style="width: 40px; height: 40px; display: none;">
-                    <div style="margin-left: 10px;">
-                        <h4 id="current-chat-name">Select a chat</h4>
-                        <span id="typing-indicator" style="font-size: 0.7rem; color: var(--cocoa-light); display: none;">typing...</span>
-                    </div>
+                    <h4 id="current-chat-name" style="margin-left: 10px;">Select a chat</h4>
                 </div>
             </div>
 
             <div class="chat-messages" id="messages-container">
-                <div style="text-align: center; color: #aaa; margin-top: 50px;">
-                    <div style="font-size: 3rem; margin-bottom: 10px;">☕</div>
-                    Select a contact or create a group to start.
-                </div>
+                <div style="text-align: center; color: #aaa; margin-top: 50px;">Select a contact.</div>
             </div>
 
             <div class="recording-overlay" id="recording-overlay">
-                <div class="recording-dot"></div>
-                <span>Recording... <span id="rec-timer" style="font-family: monospace;">0:00</span></span>
+                <div style="width:10px; height:10px; background:red; border-radius:50%;"></div>
+                <span>Recording (Max 30s)... <span id="rec-timer">0:00</span></span>
             </div>
 
             <div class="chat-input-area" id="input-area" style="display:none;">
-                <button class="icon-btn" id="img-btn" title="Send Photo">📷</button>
+                <button class="icon-btn" id="img-btn">📷</button>
                 <input type="file" id="img-upload" hidden accept="image/*">
-                
-                <input type="text" class="chat-input" id="msg-input" placeholder="Type a message..." autocomplete="off">
-                
-                <button class="icon-btn" id="mic-btn" title="Hold to Record">🎙️</button>
-                <button class="icon-btn" id="send-btn" title="Send">➤</button>
+                <input type="text" class="chat-input" id="msg-input" placeholder="Message...">
+                <button class="icon-btn" id="mic-btn">🎙️</button>
+                <button class="icon-btn" id="send-btn">➤</button>
             </div>
         </div>
     </div>
@@ -178,48 +129,36 @@
     <div class="modal" id="profile-modal">
         <div class="modal-content">
             <h3>Edit Profile</h3>
-            <div style="position: relative; width: 100px; margin: 15px auto;">
-                <img src="" id="profile-preview-large" style="width:100px; height:100px; border-radius:50%; border: 3px solid var(--cocoa-light); object-fit: cover;">
-                <div onclick="document.getElementById('profile-pic-upload').click()" style="position:absolute; bottom:0; right:0; background:var(--cocoa-dark); color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;">✎</div>
-            </div>
+            <img src="" id="profile-preview-large" style="width:100px; height:100px; border-radius:50%; margin:15px auto; display:block; object-fit: cover; border: 3px solid var(--cocoa-light);">
+            <div style="margin-bottom:15px;"><button onclick="document.getElementById('profile-pic-upload').click()" style="font-size:0.8rem; padding:5px 10px;">Change Photo</button></div>
             <input type="file" id="profile-pic-upload" hidden accept="image/*">
-            
-            <div class="input-group">
-                <label>DISPLAY NAME</label>
-                <input type="text" id="edit-username" placeholder="Display Name">
-            </div>
-            <button class="btn-primary" id="save-profile-btn">Save Changes</button>
-            <button class="icon-btn" style="margin: 10px auto 0; font-size: 1rem; width: auto; border-radius: 5px;" id="close-profile-btn">Cancel</button>
+            <input type="text" id="edit-username" placeholder="Display Name" style="width:100%; padding:10px; margin-bottom:10px;">
+            <button class="btn-primary" id="save-profile-btn">Save</button>
+            <button class="icon-btn" style="margin-top:10px; font-size:1rem;" id="close-profile-btn">Close</button>
         </div>
     </div>
 
     <div class="modal" id="group-modal">
         <div class="modal-content">
-            <h3>Create New Group</h3>
-            <div class="input-group">
-                <label>GROUP NAME</label>
-                <input type="text" id="group-name-input" placeholder="e.g. Design Team">
-            </div>
-            <p style="text-align: left; font-size: 0.8rem; color: #888;">Select Members:</p>
-            <div class="user-select-list" id="group-user-selection">
-                </div>
-            <button class="btn-primary" id="finalize-group-btn">Create Group</button>
-            <button class="icon-btn" style="margin: 10px auto 0; font-size: 1rem; width: auto; border-radius: 5px;" onclick="document.getElementById('group-modal').style.display='none'">Cancel</button>
+            <h3>New Group</h3>
+            <input type="text" id="group-name-input" placeholder="Group Name" style="width:100%; padding:10px; margin-bottom:10px;">
+            <div id="group-user-selection" style="text-align: left; max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;"></div>
+            <button class="btn-primary" id="finalize-group-btn">Create</button>
+            <button class="icon-btn" style="margin-top:10px; font-size:1rem;" onclick="document.getElementById('group-modal').style.display='none'">Cancel</button>
         </div>
     </div>
 
     <script type="module">
+        // --- 1. CONFIGURATION ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, where, doc, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
-        // --- 1. CONFIGURATION ---
+        // !!! PASTE YOUR FIREBASE KEYS HERE !!!
         const firebaseConfig = {
             apiKey: "AIzaSyBYewU3i2u9MtEIJTlmehdDER3c0tsA8eU",
             authDomain: "cocogram-c205b.firebaseapp.com",
             projectId: "cocogram-c205b",
-            storageBucket: "cocogram-c205b.firebasestorage.app",
             messagingSenderId: "160329322605",
             appId: "1:160329322605:web:ea2eb45b7a02641153ef64"
         };
@@ -227,205 +166,152 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const storage = getStorage(app);
 
-        // --- 2. SOUND & MUSIC ---
-        const bgMusic = document.getElementById('bg-music');
-        bgMusic.volume = 0.1; // Very low volume
-        
-        const SoundEngine = {
-            ctx: new (window.AudioContext || window.webkitAudioContext)(),
-            play: function(type) {
-                if(this.ctx.state === 'suspended') this.ctx.resume();
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                osc.connect(gain); gain.connect(this.ctx.destination);
-                const now = this.ctx.currentTime;
-                
-                if (type === 'click') { osc.frequency.setValueAtTime(600, now); osc.frequency.exponentialRampToValueAtTime(300, now+0.1); gain.gain.setValueAtTime(0.1, now); gain.gain.linearRampToValueAtTime(0, now+0.1); osc.start(now); osc.stop(now+0.1); }
-                if (type === 'send') { osc.frequency.setValueAtTime(400, now); osc.frequency.linearRampToValueAtTime(1000, now+0.2); gain.gain.setValueAtTime(0.1, now); gain.gain.linearRampToValueAtTime(0, now+0.2); osc.start(now); osc.stop(now+0.2); }
-                if (type === 'receive') { osc.frequency.setValueAtTime(800, now); gain.gain.setValueAtTime(0.1, now); gain.gain.linearRampToValueAtTime(0, now+0.1); osc.start(now); osc.stop(now+0.1); }
-            }
+        // --- 2. DATA COMPRESSION (The Magic) ---
+        // Compresses image to < 100KB to fit in Firestore
+        const compressImage = (file) => {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 400; // Small size for DB storage
+                        const scale = MAX_WIDTH / img.width;
+                        canvas.width = MAX_WIDTH;
+                        canvas.height = img.height * scale;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        // Save as JPEG with 0.5 quality
+                        resolve(canvas.toDataURL('image/jpeg', 0.5)); 
+                    }
+                }
+            });
         };
 
-        // --- 3. STATE & DOM ---
-        let currentUser = null;
-        let currentChatId = null; 
-        let isRegistering = false;
-        let allUsersCache = []; // Store users for group creation
+        const blobToBase64 = (blob) => {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.readAsDataURL(blob);
+            });
+        };
+
+        // --- 3. APP STATE ---
+        let currentUser = null, currentChatId = null; 
+        let isRegistering = false, allUsersCache = [];
         let mediaRecorder = null, audioChunks = [], recTimerInterval = null;
 
-        const els = {
-            loginScreen: document.getElementById('login-screen'),
-            appContainer: document.getElementById('app-container'),
-            userInput: document.getElementById('username-input'),
-            passInput: document.getElementById('password-input'),
-            authBtn: document.getElementById('auth-btn'),
-            authSwitch: document.getElementById('auth-switch-text'),
-            authError: document.getElementById('auth-error'),
-            userList: document.getElementById('user-list'),
-            msgContainer: document.getElementById('messages-container'),
-            msgInput: document.getElementById('msg-input'),
-            sidebar: document.getElementById('sidebar'),
-            chatHeaderName: document.getElementById('current-chat-name'),
-            profileModal: document.getElementById('profile-modal'),
-            groupModal: document.getElementById('group-modal')
-        };
+        document.getElementById('bg-music').volume = 0.1;
 
-        // --- 4. AUTH LOGIC ---
-        const getEmail = (username) => `${username.replace(/\s+/g, '').toLowerCase()}@homegram.com`;
-
+        // --- 4. AUTH ---
+        const getEmail = (u) => `${u.replace(/\s+/g, '').toLowerCase()}@homegram.com`;
+        
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 currentUser = user;
-                els.loginScreen.style.display = 'none';
-                els.appContainer.style.display = 'flex';
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('app-container').style.display = 'flex';
                 updateUserDisplay();
                 loadSidebarItems();
             } else {
                 currentUser = null;
-                els.loginScreen.style.display = 'flex';
-                els.appContainer.style.display = 'none';
+                document.getElementById('login-screen').style.display = 'flex';
+                document.getElementById('app-container').style.display = 'none';
             }
         });
 
-        els.authBtn.addEventListener('click', async () => {
-            SoundEngine.play('click');
-            const username = els.userInput.value.trim();
-            const pass = els.passInput.value;
-            const email = getEmail(username);
-            els.authError.innerText = "Processing...";
-            
+        document.getElementById('auth-btn').onclick = async () => {
+            const user = document.getElementById('username-input').value.trim();
+            const pass = document.getElementById('password-input').value;
             try {
                 if (isRegistering) {
-                    const cred = await createUserWithEmailAndPassword(auth, email, pass);
-                    await updateProfile(cred.user, { displayName: username });
+                    const cred = await createUserWithEmailAndPassword(auth, getEmail(user), pass);
+                    await updateProfile(cred.user, { displayName: user });
                     await setDoc(doc(db, "users", cred.user.uid), {
-                        name: username, email: email, uid: cred.user.uid,
-                        avatar: `https://ui-avatars.com/api/?name=${username}&background=6d4c41&color=fff`
+                        name: user, email: getEmail(user), uid: cred.user.uid,
+                        avatar: `https://ui-avatars.com/api/?name=${user}&background=6d4c41&color=fff`
                     });
                 } else {
-                    await signInWithEmailAndPassword(auth, email, pass);
+                    await signInWithEmailAndPassword(auth, getEmail(user), pass);
                 }
-            } catch (error) {
-                els.authError.innerText = error.message.replace('Firebase: ', '');
-            }
-        });
+            } catch (e) { document.getElementById('auth-error').innerText = e.message; }
+        };
 
-        els.authSwitch.addEventListener('click', () => {
+        document.getElementById('auth-switch-text').onclick = function() {
             isRegistering = !isRegistering;
-            els.authBtn.innerText = isRegistering ? "Create Account" : "Log In";
-            els.authSwitch.innerText = isRegistering ? "Have an account? Log In" : "Create Account";
-        });
+            this.innerText = isRegistering ? "Have account? Log In" : "Create Account";
+            document.getElementById('auth-btn').innerText = isRegistering ? "Create Account" : "Log In";
+        };
+        document.getElementById('logout-btn').onclick = () => signOut(auth);
 
-        document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
-
-        // --- 5. SIDEBAR & GROUPS ---
+        // --- 5. SIDEBAR ---
         function loadSidebarItems() {
-            els.userList.innerHTML = '';
-            allUsersCache = [];
-
-            // 1. Load Groups (where I am a member)
-            const qGroups = query(collection(db, "groups"), where("members", "array-contains", currentUser.uid));
-            onSnapshot(qGroups, (snap) => {
-                // Clear existing groups from UI to prevent dupes (naive implementation)
+            const list = document.getElementById('user-list');
+            
+            // Load Groups
+            onSnapshot(query(collection(db, "groups"), where("members", "array-contains", currentUser.uid)), (snap) => {
                 document.querySelectorAll('.group-item').forEach(e => e.remove());
-                
-                snap.forEach(doc => {
-                    const g = doc.data();
+                snap.forEach(d => {
+                    const g = d.data();
                     const div = document.createElement('div');
                     div.className = 'user-item group-item';
-                    div.innerHTML = `
-                        <img src="https://via.placeholder.com/150/3e2723/ffffff?text=GRP" class="avatar">
-                        <div class="user-info">
-                            <h4>${g.name}</h4>
-                            <p>${g.members.length} members</p>
-                        </div>
-                        <span class="tag">Group</span>
-                    `;
-                    div.onclick = () => openChat(doc.id, g.name, "https://via.placeholder.com/150/3e2723/ffffff?text=GRP", true);
-                    els.userList.prepend(div);
+                    div.innerHTML = `<img src="https://via.placeholder.com/50?text=G" class="avatar"><div class="user-info"><h4>${g.name}</h4></div>`;
+                    div.onclick = () => openChat(d.id, g.name, "https://via.placeholder.com/50?text=G", true);
+                    list.prepend(div);
                 });
             });
 
-            // 2. Load Global Chat
-            const globalDiv = document.createElement('div');
-            globalDiv.className = 'user-item';
-            globalDiv.innerHTML = `<img src="https://via.placeholder.com/150/3e2723/ffffff?text=HOME" class="avatar">
-                <div class="user-info"><h4>HomeGram Global</h4><p>Public Room</p></div>`;
-            globalDiv.onclick = () => openChat('global', 'HomeGram Global', null, true);
-            els.userList.appendChild(globalDiv);
+            // Load Global
+            if(!document.getElementById('global-item')) {
+                const global = document.createElement('div');
+                global.id = 'global-item';
+                global.className = 'user-item';
+                global.innerHTML = `<img src="https://via.placeholder.com/50?text=H" class="avatar"><div class="user-info"><h4>Global Chat</h4></div>`;
+                global.onclick = () => openChat('global', 'Global Chat', "https://via.placeholder.com/50?text=H", true);
+                list.appendChild(global);
+            }
 
-            // 3. Load Users (DMs)
+            // Load Users
             onSnapshot(collection(db, "users"), (snap) => {
-                // Remove old user items
                 document.querySelectorAll('.dm-item').forEach(e => e.remove());
-                allUsersCache = []; // Refresh cache for group creation
-
-                snap.forEach(doc => {
-                    const u = doc.data();
-                    if (u.uid === currentUser.uid) return;
-                    allUsersCache.push(u); // Add to cache
-
+                allUsersCache = [];
+                snap.forEach(d => {
+                    const u = d.data();
+                    if(u.uid === currentUser.uid) return;
+                    allUsersCache.push(u);
                     const div = document.createElement('div');
                     div.className = 'user-item dm-item';
-                    div.innerHTML = `
-                        <img src="${u.avatar}" class="avatar">
-                        <div class="user-info"><h4>${u.name}</h4><p>Tap to DM</p></div>
-                    `;
+                    div.innerHTML = `<img src="${u.avatar}" class="avatar"><div class="user-info"><h4>${u.name}</h4></div>`;
                     div.onclick = () => openChat(u.uid, u.name, u.avatar, false);
-                    els.userList.appendChild(div);
+                    list.appendChild(div);
                 });
             });
         }
 
-        // --- 6. CHAT LOGIC ---
-        let unsubscribeMessages = null;
-
+        // --- 6. CHAT ---
+        let unsubMsg = null;
         function openChat(id, name, avatar, isGroup) {
-            SoundEngine.play('click');
-            currentChatId = id; // If Group, id is DocID. If DM, id is UserID (needs processing).
-            
-            // UI Update
-            els.chatHeaderName.innerText = name;
-            document.getElementById('current-chat-avatar').src = avatar || "https://via.placeholder.com/150/3e2723/ffffff?text=U";
+            currentChatId = id;
+            document.getElementById('current-chat-name').innerText = name;
+            document.getElementById('current-chat-avatar').src = avatar;
             document.getElementById('current-chat-avatar').style.display = 'block';
             document.getElementById('input-area').style.display = 'flex';
-            if(window.innerWidth <= 768) els.sidebar.classList.add('hidden');
+            if(window.innerWidth <= 768) document.getElementById('sidebar').classList.add('hidden');
 
-            if (unsubscribeMessages) unsubscribeMessages();
+            if (unsubMsg) unsubMsg();
+            let dbId = (!isGroup && id !== 'global') ? [currentUser.uid, id].sort().join('_') : id;
+            document.getElementById('messages-container').dataset.dbChatId = dbId;
 
-            // Determine Database Chat ID
-            let dbChatId = id; 
-            if (!isGroup && id !== 'global') {
-                // DM Logic: Sort UIDs to create unique key
-                dbChatId = [currentUser.uid, id].sort().join('_');
-            }
-
-            const q = query(collection(db, "messages"), where("chatId", "==", dbChatId), orderBy("timestamp", "asc"));
-            els.msgContainer.innerHTML = '';
-
-            unsubscribeMessages = onSnapshot(q, (snapshot) => {
-                const wasAtBottom = els.msgContainer.scrollHeight - els.msgContainer.scrollTop === els.msgContainer.clientHeight;
-                
-                // Naive rerender (better to append only new)
-                els.msgContainer.innerHTML = '';
-                if(snapshot.empty) els.msgContainer.innerHTML = '<div style="text-align:center;color:#ccc;margin-top:20px">No messages here yet.</div>';
-
-                snapshot.forEach(doc => renderMessage(doc.data()));
-                
-                els.msgContainer.scrollTop = els.msgContainer.scrollHeight;
-                
-                // Play sound if new message received
-                snapshot.docChanges().forEach(change => {
-                    if(change.type === "added" && change.doc.data().senderId !== currentUser.uid) {
-                        SoundEngine.play('receive');
-                    }
-                });
+            const q = query(collection(db, "messages"), where("chatId", "==", dbId), orderBy("timestamp", "asc"));
+            unsubMsg = onSnapshot(q, (snap) => {
+                const container = document.getElementById('messages-container');
+                container.innerHTML = '';
+                snap.forEach(d => renderMessage(d.data()));
+                container.scrollTop = container.scrollHeight;
             });
-
-            // Store the computed ChatID on the element for sending
-            els.msgContainer.dataset.dbChatId = dbChatId;
         }
 
         function renderMessage(msg) {
@@ -434,174 +320,126 @@
             div.className = `message ${isMe ? 'sent' : 'received'}`;
             
             let content = '';
+            // Renders Base64 data directly
             if (msg.type === 'text') content = `<div>${msg.text}</div>`;
-            else if (msg.type === 'image') content = `<img src="${msg.mediaUrl}" onclick="window.open(this.src)">`;
-            else if (msg.type === 'audio') content = `🎤 Voice <div class="audio-player" data-url="${msg.mediaUrl}">▶ Play</div>`;
+            else if (msg.type === 'image') content = `<img src="${msg.mediaUrl}">`;
+            else if (msg.type === 'audio') content = `🎤 Voice <div style="background:rgba(0,0,0,0.1); padding:5px; border-radius:10px; cursor:pointer;" onclick="new Audio('${msg.mediaUrl}').play()">▶ Play</div>`;
 
-            if(!isMe) content = `<small style="font-size:0.6rem;color:#888;font-weight:bold;display:block;margin-bottom:2px">${msg.senderName}</small>` + content;
-
+            if(!isMe) content = `<small style="font-size:0.6rem;color:#888;">${msg.senderName}</small>` + content;
             div.innerHTML = content;
+            document.getElementById('messages-container').appendChild(div);
+        }
 
-            if(msg.type === 'audio') {
-                div.querySelector('.audio-player').addEventListener('click', (e) => {
-                    SoundEngine.play('click');
-                    const a = new Audio(e.target.dataset.url);
-                    a.play();
+        async function sendMessage(type, content, mediaBase64 = null) {
+            const dbId = document.getElementById('messages-container').dataset.dbChatId;
+            if(!dbId) return;
+            try {
+                await addDoc(collection(db, "messages"), {
+                    chatId: dbId,
+                    senderId: currentUser.uid,
+                    senderName: currentUser.displayName,
+                    text: content,
+                    mediaUrl: mediaBase64, 
+                    type: type,
+                    timestamp: Date.now()
                 });
+            } catch(e) { alert("File too big for No-Storage mode! (Max 1MB)"); }
+        }
+
+        // --- 7. INPUTS & MEDIA ---
+        document.getElementById('send-btn').onclick = () => {
+            const txt = document.getElementById('msg-input').value;
+            if(txt) { sendMessage('text', txt); document.getElementById('msg-input').value = ''; }
+        };
+
+        // IMAGE (Compressed)
+        document.getElementById('img-btn').onclick = () => document.getElementById('img-upload').click();
+        document.getElementById('img-upload').onchange = async (e) => {
+            if(e.target.files[0]) {
+                const base64 = await compressImage(e.target.files[0]);
+                sendMessage('image', '', base64);
             }
-            els.msgContainer.appendChild(div);
-        }
+        };
 
-        async function sendMessage(type, content, mediaUrl = null) {
-            const dbChatId = els.msgContainer.dataset.dbChatId;
-            if (!dbChatId) return;
-            SoundEngine.play('send');
-            
-            await addDoc(collection(db, "messages"), {
-                chatId: dbChatId,
-                senderId: currentUser.uid,
-                senderName: currentUser.displayName,
-                text: content,
-                mediaUrl: mediaUrl,
-                type: type,
-                timestamp: Date.now()
-            });
-        }
-
-        // --- 7. INPUT HANDLERS (TEXT, IMG, VOICE) ---
-        document.getElementById('send-btn').addEventListener('click', () => {
-            const text = els.msgInput.value.trim();
-            if(text) { sendMessage('text', text); els.msgInput.value = ''; }
-        });
-        
-        els.msgInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') document.getElementById('send-btn').click(); });
-
-        document.getElementById('img-btn').addEventListener('click', () => document.getElementById('img-upload').click());
-        document.getElementById('img-upload').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if(!file) return;
-            const refImg = ref(storage, `images/${Date.now()}_${file.name}`);
-            await uploadBytes(refImg, file);
-            sendMessage('image', '', await getDownloadURL(refImg));
-        });
-
-        // VOICE
+        // VOICE (Base64)
+        const micBtn = document.getElementById('mic-btn');
         const startRec = async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                // Use audio/webm for better browser compatibility
-                mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+                mediaRecorder = new MediaRecorder(stream);
                 mediaRecorder.start();
                 audioChunks = [];
                 document.getElementById('recording-overlay').style.display = 'flex';
-                let sec = 0;
-                recTimerInterval = setInterval(() => { sec++; document.getElementById('rec-timer').innerText = `0:0${sec}`; }, 1000);
-                
-                mediaRecorder.addEventListener("dataavailable", e => audioChunks.push(e.data));
-                mediaRecorder.addEventListener("stop", async () => {
+                let s = 0; 
+                recTimerInterval = setInterval(() => { 
+                    s++; document.getElementById('rec-timer').innerText = `0:0${s}`;
+                    if(s >= 30) stopRec(); // Limit to 30s
+                }, 1000);
+                mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+                mediaRecorder.onstop = async () => {
                     const blob = new Blob(audioChunks, { type: 'audio/webm' });
-                    const refAud = ref(storage, `voice/${Date.now()}.webm`);
-                    await uploadBytes(refAud, blob);
-                    sendMessage('audio', '', await getDownloadURL(refAud));
-                });
-            } catch(e) { console.error(e); alert("Mic Error: Check permissions or use HTTPS"); }
+                    const base64 = await blobToBase64(blob);
+                    sendMessage('audio', '', base64);
+                };
+            } catch(e) { alert("Mic Error"); }
         };
-
         const stopRec = () => {
-            if(mediaRecorder && mediaRecorder.state !== 'inactive') {
-                mediaRecorder.stop();
-                clearInterval(recTimerInterval);
-                document.getElementById('recording-overlay').style.display = 'none';
-                document.getElementById('rec-timer').innerText = "0:00";
-            }
+            if(mediaRecorder) { mediaRecorder.stop(); clearInterval(recTimerInterval); document.getElementById('recording-overlay').style.display='none'; }
         };
+        micBtn.onmousedown = startRec; micBtn.onmouseup = stopRec;
+        micBtn.ontouchstart = (e)=>{e.preventDefault(); startRec();}; micBtn.ontouchend = (e)=>{e.preventDefault(); stopRec();};
 
-        const micBtn = document.getElementById('mic-btn');
-        micBtn.addEventListener('mousedown', startRec);
-        micBtn.addEventListener('mouseup', stopRec);
-        micBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startRec(); });
-        micBtn.addEventListener('touchend', (e) => { e.preventDefault(); stopRec(); });
-
-        // --- 8. GROUP CREATION & PROFILE EDIT ---
-        // Create Group
-        document.getElementById('create-group-btn').addEventListener('click', () => {
-            els.groupModal.style.display = 'flex';
-            const list = document.getElementById('group-user-selection');
-            list.innerHTML = '';
-            // Render user checkboxes
-            allUsersCache.forEach(u => {
-                const div = document.createElement('div');
-                div.className = 'user-select-item';
-                div.innerHTML = `<label><input type="checkbox" value="${u.uid}"> ${u.name}</label>`;
-                list.appendChild(div);
-            });
-        });
-
-        document.getElementById('finalize-group-btn').addEventListener('click', async () => {
-            const name = document.getElementById('group-name-input').value;
-            if(!name) return alert("Enter Group Name");
-            
-            const checks = document.querySelectorAll('#group-user-selection input:checked');
-            const members = [currentUser.uid]; // Add self
-            checks.forEach(c => members.push(c.value));
-            
-            await addDoc(collection(db, "groups"), {
-                name: name,
-                members: members,
-                admin: currentUser.uid,
-                createdAt: Date.now()
-            });
-            
-            els.groupModal.style.display = 'none';
-            alert("Group Created!");
-        });
-
-        // Edit Profile
+        // --- 8. UI UTILS ---
         function updateUserDisplay() {
-            if(!currentUser) return;
-            document.getElementById('my-username-display').innerText = currentUser.displayName;
-            // Fetch latest user doc for avatar
-            getDocs(query(collection(db, "users"), where("uid", "==", currentUser.uid))).then(sn => {
-                if(!sn.empty) {
-                    const d = sn.docs[0].data();
-                    document.getElementById('my-avatar-mini').src = d.avatar;
-                    document.getElementById('profile-preview-large').src = d.avatar;
-                }
-            });
+            if(currentUser) {
+                document.getElementById('my-username-display').innerText = currentUser.displayName;
+                getDocs(query(collection(db, "users"), where("uid", "==", currentUser.uid))).then(sn => {
+                    if(!sn.empty) {
+                        const av = sn.docs[0].data().avatar;
+                        document.getElementById('my-avatar-mini').src = av;
+                        document.getElementById('profile-preview-large').src = av;
+                    }
+                });
+            }
         }
 
-        document.getElementById('profile-trigger').addEventListener('click', () => els.profileModal.style.display = 'flex');
-        document.getElementById('close-profile-btn').addEventListener('click', () => els.profileModal.style.display = 'none');
-        
-        document.getElementById('save-profile-btn').addEventListener('click', async () => {
-            const newName = document.getElementById('edit-username').value;
+        // Profile & Group Modals
+        document.getElementById('save-profile-btn').onclick = async () => {
+            const name = document.getElementById('edit-username').value;
             const file = document.getElementById('profile-pic-upload').files[0];
+            let avatarBase64 = null;
+            if(file) avatarBase64 = await compressImage(file);
             
-            if (newName) await updateProfile(currentUser, { displayName: newName });
-
-            let newAvatarUrl = null;
-            if (file) {
-                const sRef = ref(storage, `avatars/${currentUser.uid}_${Date.now()}`);
-                await uploadBytes(sRef, file);
-                newAvatarUrl = await getDownloadURL(sRef);
-            }
-
-            const dataToUpdate = {};
-            if(newName) dataToUpdate.name = newName;
-            if(newAvatarUrl) dataToUpdate.avatar = newAvatarUrl;
-
-            await setDoc(doc(db, "users", currentUser.uid), dataToUpdate, { merge: true });
+            const updateData = {};
+            if(name) { updateProfile(currentUser, {displayName: name}); updateData.name = name; }
+            if(avatarBase64) updateData.avatar = avatarBase64;
             
+            await setDoc(doc(db, "users", currentUser.uid), updateData, {merge: true});
             updateUserDisplay();
-            els.profileModal.style.display = 'none';
-        });
-
-        // Utils
-        document.getElementById('back-to-sidebar').onclick = () => els.sidebar.classList.remove('hidden');
-        document.getElementById('music-toggle-btn').onclick = () => {
-             if(bgMusic.paused) bgMusic.play(); else bgMusic.pause();
+            document.getElementById('profile-modal').style.display = 'none';
         };
 
+        document.getElementById('back-to-sidebar').onclick = () => document.getElementById('sidebar').classList.remove('hidden');
+        document.getElementById('profile-trigger').onclick = () => document.getElementById('profile-modal').style.display = 'flex';
+        document.getElementById('close-profile-btn').onclick = () => document.getElementById('profile-modal').style.display = 'none';
+        
+        document.getElementById('create-group-btn').onclick = () => {
+            const list = document.getElementById('group-user-selection');
+            list.innerHTML = '';
+            allUsersCache.forEach(u => {
+                list.innerHTML += `<div style="padding:5px; border-bottom:1px solid #eee;"><label><input type="checkbox" value="${u.uid}"> ${u.name}</label></div>`;
+            });
+            document.getElementById('group-modal').style.display = 'flex';
+        };
+        
+        document.getElementById('finalize-group-btn').onclick = async () => {
+            const name = document.getElementById('group-name-input').value;
+            const checks = document.querySelectorAll('#group-user-selection input:checked');
+            const members = [currentUser.uid];
+            checks.forEach(c => members.push(c.value));
+            await addDoc(collection(db, "groups"), { name, members, admin: currentUser.uid });
+            document.getElementById('group-modal').style.display = 'none';
+        };
     </script>
 </body>
 </html>
