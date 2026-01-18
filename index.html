@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HomeGram - Neon</title>
+    <title>HomeGram - Neon Final</title>
     <style>
         /* --- NEON OBSIDIAN THEME --- */
         :root {
@@ -37,8 +37,7 @@
         .inp { width: 100%; padding: 15px; margin-bottom: 15px; background: #0a0a0a; border: 1px solid #333; border-radius: 12px; color: white; outline: none; transition: 0.3s; }
         .inp:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
         .btn-glow { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(108,99,255,0.3); }
-        .credit { margin-top: 20px; font-size: 0.7rem; color: #444; }
-
+        
         /* --- SIDEBAR --- */
         .sidebar { width: 320px; border-right: 1px solid #333; display: flex; flex-direction: column; background: var(--surface-glass); z-index: 20; height: 100%; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         
@@ -99,6 +98,8 @@
             .chat-area { width: 100%; }
             #app { border: none; }
         }
+        
+        .footer-credit { position: absolute; bottom: 10px; left: 0; width: 100%; text-align: center; color: #444; font-size: 0.7rem; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -113,7 +114,7 @@
             <p style="color:var(--text-dim); margin-bottom:30px;">Neon Edition</p>
             <input type="text" id="user-in" class="inp" placeholder="Pick a username">
             <input type="password" id="pass-in" class="inp" placeholder="Password">
-            <button id="login-btn" class="btn-glow">ENTER</button>
+            <button id="login-btn" class="btn-glow">ENTER THE GRID</button>
             <p id="toggle-auth" style="margin-top:20px; color:var(--primary); cursor:pointer; font-size:0.9rem;">New here? Create Account</p>
             <div id="login-err" style="color:#ff4444; margin-top:10px; font-size:0.8rem;"></div>
             <div class="credit">Made by Mohammed Anwer</div>
@@ -138,7 +139,7 @@
             
             <div class="user-list" id="user-list">
                 </div>
-            <div style="text-align:center; padding:10px; font-size:0.7rem; color:#444;">Made by Mohammed Anwer</div>
+            <div class="footer-credit">Made by Mohammed Anwer</div>
         </div>
 
         <div class="chat-area">
@@ -150,7 +151,7 @@
 
             <div class="msgs" id="msg-box">
                 <div style="text-align:center; color:#444; margin-top:50px;">
-                    Connecting to Global Channel...
+                    System Initializing...
                 </div>
             </div>
 
@@ -166,10 +167,10 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, where, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+        // CONFIG
         const firebaseConfig = {
             apiKey: "AIzaSyBYewU3i2u9MtEIJTlmehdDER3c0tsA8eU",
             authDomain: "cocogram-c205b.firebaseapp.com",
@@ -181,7 +182,6 @@
         };
 
         const fApp = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(fApp);
         const auth = getAuth(fApp);
         const db = getFirestore(fApp);
 
@@ -223,7 +223,7 @@
                         document.getElementById('app').style.display = 'flex';
                         this.updateSelf();
                         this.loadUsers();
-                        this.openChat('global', 'Global Channel', 'G', true); 
+                        this.openChat('global', 'Global Channel', 'G', true);
                         setDoc(doc(db,"users",u.uid), { name: u.displayName, uid: u.uid, lastActive: Date.now() }, { merge: true });
                     } else {
                         document.getElementById('login-screen').style.display = 'flex';
@@ -278,20 +278,20 @@
 
             toggleAuth() {
                 this.isReg = !this.isReg;
-                document.getElementById('login-btn').innerText = this.isReg ? "Register ID" : "ENTER";
+                document.getElementById('login-btn').innerText = this.isReg ? "Register ID" : "ENTER THE GRID";
                 document.getElementById('toggle-auth').innerText = this.isReg ? "Have ID? Login" : "New User? Register";
             },
 
             loadUsers() {
                 const list = document.getElementById('user-list');
-                // Removed 'orderBy' to fix missing index bug
+                // Sorting removed from query to avoid index errors
                 onSnapshot(collection(db, "users"), snap => {
                     list.innerHTML = "";
-                    
                     list.appendChild(this.createItem('global', 'Global Channel', 'G', true));
                     
                     let users = [];
                     snap.forEach(d => users.push(d.data()));
+                    // Sort locally
                     users.sort((a,b) => (b.lastActive || 0) - (a.lastActive || 0));
 
                     users.forEach(u => {
@@ -326,7 +326,7 @@
                 avi.innerText = initials;
                 avi.style.display = 'flex';
                 avi.style.background = isGlobal ? 'var(--primary)' : '#333';
-                avi.style.color = isGlobal ? 'white' : 'white';
+                avi.style.color = 'white';
 
                 if(window.innerWidth <= 768) document.getElementById('sidebar').classList.add('hide');
 
@@ -334,7 +334,7 @@
 
                 const q = query(collection(db, "msgs"), where("cid", "==", this.chatId));
                 
-                this.msgUnsub = onSnapshot(q, snap => {
+                this.msgUnsub = onSnapshot(q, (snap) => {
                     const box = document.getElementById('msg-box');
                     box.innerHTML = "";
                     
@@ -343,7 +343,7 @@
                     msgs.sort((a,b) => a.ts - b.ts);
 
                     if(msgs.length === 0) {
-                         box.innerHTML = `<div style="text-align:center;color:#444;margin-top:50px;">Signal Established.<br>Begin Transmission.</div>`;
+                         box.innerHTML = `<div style="text-align:center;color:#444;margin-top:50px;">Signal Established.<br>No data found.</div>`;
                     }
 
                     msgs.forEach(m => {
@@ -370,6 +370,8 @@
                         const last = msgs[msgs.length-1];
                         if(last.uid !== this.user.uid && Date.now() - last.ts < 1000) SFX.play('recv');
                     }
+                }, (error) => {
+                    alert("Database Blocked! Please set your Firestore Rules to 'allow read, write: if true;' in Firebase Console.");
                 });
             },
 
@@ -381,7 +383,7 @@
                         cid: this.chatId, uid: this.user.uid, name: this.user.displayName,
                         type, txt, media, ts: Date.now()
                     });
-                } catch(e) { alert("Error: " + e.message); }
+                } catch(e) { alert("Send Failed: " + e.message); }
             },
 
             sendText() {
